@@ -19,6 +19,7 @@ app.use(
   })
 );
 app.use(helmet.dnsPrefetchControl());
+app.use(helmet.noCache());
 
 // configure routes and port number
 app.disable('strict-transport-security');
