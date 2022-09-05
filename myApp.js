@@ -18,7 +18,9 @@ app.use(
     force: true,
   })
 );
+app.use(helmet.dnsPrefetchControl());
 
+// configure routes and port number
 app.disable('strict-transport-security');
 app.use('/_api', api);
 app.get('/', function (request, response) {
