@@ -20,6 +20,14 @@ app.use(
 );
 app.use(helmet.dnsPrefetchControl());
 app.use(helmet.noCache());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      scriptSrc: ["'self'", 'trusted-cdn.com'],
+      defaultSrc: ["'self'"],
+    },
+  })
+);
 
 // configure routes and port number
 app.disable('strict-transport-security');
