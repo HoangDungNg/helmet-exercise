@@ -7,7 +7,7 @@ const api = require('./server.js');
 app.use(express.static('public'));
 
 // helmet
-app.use(helmet.hidePoweredBy());
+/*app.use(helmet.hidePoweredBy());
 app.use(helmet.frameguard({ action: 'deny' }));
 app.use(helmet.xssFilter());
 app.use(helmet.noSniff());
@@ -18,12 +18,29 @@ app.use(
     force: true,
   })
 );
-app.use(helmet.dnsPrefetchControl());
+app.use(helmet.dnsPrefetchControl());*/
+app.use(
+  helmet({
+    frameguard: {
+      // configure
+      action: 'deny',
+    },
+    contentSecurityPolicy: {
+      // enable and configure
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ['style.com'],
+      },
+    },
+    dnsPrefetchControl: false, // disable
+  })
+);
 app.use(helmet.noCache());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
+      // prettier-ignore
       scriptSrc: ["'self'", "trusted-cdn.com"],
     },
   })
